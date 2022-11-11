@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "GtSuper";
+  font-style: normal;
+  font-weight: 500;
+  src: local("/fonts/GT-Super/GT-Super-Text-Medium-Trial.otf"),
+    url("/fonts/GT-Super/GT-Super-Text-Medium-Trial.otf") format("otf");
+}
+
 body {
   background: linear-gradient(
     to right,
-    rgb(55, 65, 81, 0.15),
-    rgb(17, 24, 39, 0.15),
-    rgb(0, 0, 0, 0.15)
+    rgba(172, 176, 180, 0.6),
+    rgb(17, 24, 39, 0.1),
+    rgb(0, 0, 0, 0.1)
   );
 }
