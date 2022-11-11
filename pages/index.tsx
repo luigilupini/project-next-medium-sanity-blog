@@ -1,7 +1,8 @@
 import Head from "next/head";
+import Link from "next/link";
 import Header from "../components/Header";
 
-import { sanityClient } from "../sanity.js";
+import { sanityClient, urlFor } from "../sanity.js";
 import { Post } from "../typings";
 
 // ! TypeScript: We require structure 🤞
@@ -36,6 +37,37 @@ export default function Home({ posts }: Props) {
           src="https://accountabilitylab.org/wp-content/uploads/2020/03/Medium-logo.png"
           alt="logo"
         />
+      </div>
+      {/* Posts from sanity */}
+      <div className="grid grid-cols-1 gap-3 p2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
+        {posts.map((post) => (
+          <Link key={post._id} href={`/post/${post.slug.current}`}>
+            <div className="overflow-hidden border rounded-lg cursor-pointer group">
+              {/* If you truly want to confirm that a variable is not null & not
+              an empty string specifically, you would confirm with `!`: */}
+              <div className="overflow-hidden">
+                <img
+                  className="object-cover w-full transition-transform duration-200 ease-in-out h-60 group-hover:scale-105"
+                  src={urlFor(post.mainImage).url()!}
+                  alt=""
+                />
+              </div>
+              <div className="flex justify-between p-5 bg-white ">
+                <div>
+                  <p className="text-lg font-bold">{post.title}</p>
+                  <p className="text-xs">
+                    {post.description} by {post.author.name}
+                  </p>
+                </div>
+                <img
+                  className="object-cover w-12 h-12 m-1 rounded-full"
+                  src={urlFor(post.author.image).url()!}
+                  alt=""
+                />
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

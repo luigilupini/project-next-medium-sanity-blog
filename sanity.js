@@ -1,8 +1,5 @@
-import {
-  createImageUrlBuilder,
-  createCurrentUserHook,
-  createClient,
-} from "next-sanity";
+import { createCurrentUserHook, createClient } from "next-sanity";
+import createImageUrlBuilder from "@sanity/image-url";
 
 /* https://github.com/sanity-io/next-sanity (Usage)
 It’s practical to set up dedicated files where you import and set up your client
