@@ -3,15 +3,74 @@ import Header from "../../components/Header";
 import { sanityClient, urlFor } from "../../sanity";
 import { Post } from "../../typings";
 
+/* https://www.sanity.io/plugins/react-portable-text:
+React Portable Text uses @sanity/block-content-to-react under the hood, but maps
+each of these types to the correct place in the serializers for you, normalizing
+`props` to match the fields supplied by users in your Sanity Studio, simplifying
+the cognitive load required to author new ones. */
+import PortableText from "react-portable-text";
+// This is responsible for converting objects into understandable JS data types.
+const serializer = {
+  h1: (props: any) => <h1 className="text-2xl font-bold my-5" {...props} />,
+  h2: (props: any) => <h2 className="text-xl font-bold my-5" {...props} />,
+  li: ({ children }: any) => <li className="ml-4 list-disc">{children}</li>,
+  link: ({ href, children }: any) => (
+    <a href={href} className="text-blue-500 hover:underline">
+      {children}
+    </a>
+  ),
+};
+
 interface Props {
   post: Post;
 }
 
 export default function Slug({ post }: Props) {
-  console.log(post);
+  // console.log(post);
   return (
     <main>
       <Header />
+      <img
+        className="w-full h-40 object-cover"
+        src={urlFor(post.mainImage).url()!}
+        alt=""
+      />
+      <article className="max-w-3xl mx-auto p-5">
+        <h1 className="text-3xl mt-10 mb-3">{post.title}</h1>
+        <h2 className="text-xl font-light text-gray-500 mb-2">
+          {post.description}
+        </h2>
+        <div className="flex items-center space-x-2">
+          <img
+            className="h-10 w-10 rounded-full object-cover"
+            src={urlFor(post.author.image).url()!}
+            alt=""
+          />
+          <p className="font-extralight text-sm">
+            Blog post by{" "}
+            <span className="text-green-600 font-medium">
+              {post.author.name}
+            </span>{" "}
+            - Published at {new Date(post._createdAt).toLocaleString()}
+          </p>
+        </div>
+        {/* Importing data from the post body in sanity: */}
+        <div className="mt-10">
+          {/* React Portable Text maps the following types explicitly and treats
+          all other properties of a `serializers` object as custom types. These
+          custom types are used for both type and block blocks (i.e custom marks
+          as well as custom block-level insertion types). Simply, `serializers`
+          are essentially detail on what to do with an item "across an array of
+          objects" in our rich text array of objects. They are responsible for a
+          converting of objects into data type understandable by javascript */}
+          <PortableText
+            content={post.body}
+            serializers={serializer}
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+          />
+        </div>
+      </article>
     </main>
   );
 }
