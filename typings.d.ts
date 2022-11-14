@@ -18,4 +18,21 @@ export interface Post {
     current: string;
   };
   body: [object];
+  comments: Comment[];
+}
+
+export interface Comment {
+  approved: boolean;
+  _id: string;
+  _createdAt: string;
+  comment: string;
+  email: string;
+  name: string;
+  post: {
+    _ref: string;
+    _type: string;
+  };
+  _rev: string;
+  _type: string;
+  updatedAt: string;
 }

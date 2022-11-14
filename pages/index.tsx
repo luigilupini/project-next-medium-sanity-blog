@@ -47,7 +47,7 @@ export default function Home({ posts }: Props) {
               an empty string specifically, you would confirm with `!`: */}
               <div className="overflow-hidden">
                 <img
-                  className="object-cover w-full transition-transform duration-200 ease-in-out h-48 group-hover:scale-105"
+                  className="object-cover w-full h-48 transition-transform duration-200 ease-in-out group-hover:scale-105"
                   src={urlFor(post.mainImage).url()!}
                   alt=""
                 />
