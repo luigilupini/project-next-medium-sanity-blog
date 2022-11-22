@@ -140,10 +140,7 @@ export default function Slug({ post }: Props) {
           <h4 className="text-2xl font-bold">Leave a comment below!</h4>
           <hr className="py-3 mt-2" />
 
-          {/* This hidden `_id` form embeds information inside it. Here we use the
-        register function returned from `useForm` to spread out its values into
-        our form, enhancing all input fields we place it as a prop. The types we
-        pass to the register callbacks, are setup in `FormInput` interface. */}
+          {/* This hidden `_id` form embeds information inside it. Here we use the register function returned from `useForm` to spread out its values into our form, enhancing all input fields we place it as a prop. The types we pass to the register callbacks, are setup in `FormInput` interface. */}
           <input
             {...register("_id")}
             type="hidden"
@@ -157,7 +154,7 @@ export default function Slug({ post }: Props) {
               {...register("name", { required: true })}
               className="block w-full px-3 py-2 mt-1 border rounded shadow outline-none form-input ring-yellow-500 focus:ring"
               type="text"
-              placeholder="Gareth Mallory"
+              placeholder="Your name please"
             />
           </label>
           <label className="block mb-5">
@@ -166,7 +163,7 @@ export default function Slug({ post }: Props) {
               {...register("email", { required: true })}
               className="block w-full px-3 py-2 mt-1 border rounded shadow outline-none form-input ring-yellow-500 focus:ring"
               type="text"
-              placeholder="Gareth Mallory"
+              placeholder="And your email"
             />
           </label>
           <label className="block mb-5">
@@ -175,7 +172,7 @@ export default function Slug({ post }: Props) {
               {...register("comment", { required: true })}
               className="block w-full px-3 py-2 mt-1 border rounded shadow outline-none form-textarea ring-yellow-500 focus:ring"
               rows={8}
-              placeholder="Gareth Mallory"
+              placeholder="Lastly, leave a comment"
             />
           </label>
 
@@ -203,13 +200,15 @@ export default function Slug({ post }: Props) {
       <hr className="max-w-lg mx-auto my-5 border border-custom-yellow-medium" />
 
       {/* Comments */}
-      <div className="flex flex-col max-w-2xl p-10 mx-auto my-10 space-y-2 shadow shadow-yellow-500">
-        <h3 className="text-4xl">Comments</h3>
+      <div className="flex flex-col max-w-2xl p-10 mx-auto my-10 space-y-2 shadow">
+        <h3 className="text-3xl">Comments</h3>
         <hr className="pb-2" />
         {post.comments.map((comment) => (
           <div key={comment._id}>
-            <p>
-              <span className="text-custom-yellow-medium">{comment.name}</span>:{" "}
+            <p className="text-sm font-light">
+              <span className="p-1 px-2 font-medium bg-yellow-300 rounded">
+                {comment.name}
+              </span>{" "}
               {comment.comment}
             </p>
           </div>
@@ -251,9 +250,7 @@ folder pages/post/[file].js. The matched path parameter is then sent as a query
 parameter to the page like [slug].tsx, and merged with other query parameters. A
 example, route /post/abc will have a `query` object: { "slug": "abc" }. Dynamic
 routes can be extended to catch all paths by adding three dots (...) inside the
-brackets. A example `pages/post/[...slug].js` matches `/post/a`, and `/post/a/b`.
-Client-side navigation to dynamic routes/pages are handled with `next/link`. If
-we wanted to have links to the routes, use the Link component.
+brackets. A example `pages/post/[...slug].js` matches `/post/a`, and `/post/a/b`. Client-side navigation to dynamic routes/pages are handled with `next/link`. If we wanted to have links to the routes, use the Link component.
 https://nextjs.org/learn/basics/dynamic-routes
 
 The feature allows us to make "dynamic pages" determined by the slug/id. Dynamic

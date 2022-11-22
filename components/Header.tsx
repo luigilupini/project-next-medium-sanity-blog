@@ -20,13 +20,12 @@ export default function Header() {
           {/* <span className="text-xs font-bold">plus</span> */}
         </Link>
         {/* Mobile first with the div hidden till we breakpoint into flex */}
-        <div className="items-center hidden space-x-5 md:inline-flex">
-          <h3>About</h3>
-          <h3>Contact</h3>
-          <h3 className="px-4 py-1 text-white bg-green-600 rounded-full">
-            Follow
-          </h3>
-        </div>
+        <div className="items-center hidden space-x-5 md:inline-flex"></div>
+        <h3>Our story</h3>
+        <h3>Membership</h3>
+        <h3 className="px-4 py-1 text-white bg-green-600 rounded-full">
+          Write
+        </h3>
       </div>
       <div className="flex items-center space-x-5 text-green-600">
         <h3>Sign In</h3>
