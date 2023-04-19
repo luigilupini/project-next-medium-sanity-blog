@@ -1,9 +1,9 @@
-import Head from "next/head";
-import Link from "next/link";
-import Header from "../components/Header";
+import Head from 'next/head';
+import Link from 'next/link';
+import Header from '../components/Header';
 
-import { sanityClient, urlFor } from "../sanity.js";
-import { Post } from "../typings";
+import { sanityClient, urlFor } from '../sanity.js';
+import { Post } from '../typings';
 
 // ! TypeScript: We require structure 🤞
 // Here define what our props "interface or types" should look like.
@@ -25,11 +25,12 @@ export default function Home({ posts }: Props) {
           <h1 className="max-w-xl font-serif text-6xl">
             <span className="underline decoration-black decoration-4">
               Medium
-            </span>{" "}
+            </span>{' '}
             where good ideas find you.
           </h1>
           <h2>
-            Discover stories, thinking, and expertise from writers on any topic.
+            Discover stories, thinking, and expertise from writers on
+            any topic.
           </h2>
         </div>
         <img
@@ -39,7 +40,7 @@ export default function Home({ posts }: Props) {
         />
       </div>
       {/* Posts from sanity */}
-      <div className="grid grid-cols-1 gap-3 p2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
         {posts.map((post) => (
           <Link key={post._id} href={`/post/${post.slug.current}`}>
             <div className="overflow-hidden border rounded-lg cursor-pointer group">
@@ -54,7 +55,9 @@ export default function Home({ posts }: Props) {
               </div>
               <div className="flex justify-between p-5 bg-white ">
                 <div>
-                  <p className="p-1 text-lg font-bold">{post.title}</p>
+                  <p className="p-1 text-lg font-bold">
+                    {post.title}
+                  </p>
                   <p className="text-xs">
                     {post.description} by {post.author.name}
                   </p>

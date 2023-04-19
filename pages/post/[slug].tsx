@@ -1,28 +1,34 @@
-import { useState } from "react";
-import { GetStaticProps } from "next";
-import Header from "../../components/Header";
-import { sanityClient, urlFor } from "../../sanity";
-import { Post } from "../../typings";
+import { useState } from 'react';
+import { GetStaticProps } from 'next';
+import Header from '../../components/Header';
+import { sanityClient, urlFor } from '../../sanity';
+import { Post } from '../../typings';
 
 /* https://react-hook-form.com/:
 `useForm` is a custom hook for managing forms with ease. The hook takes a object
 and options object that allows you to configure the validation strategy before a
 user submits the form (onSubmit event). Validations trigger on the submit event
 being onSubmit. Invalid attach onChange event listeners to re-validate them.*/
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 /* https://www.sanity.io/plugins/react-portable-text:
 React Portable Text uses @sanity/block-content-to-react under the hood, but maps
 each of these types to the correct place in the serializers for you, normalizing
 `props` to match the fields supplied by users in your Sanity Studio, simplifying
 the cognitive load required to author new ones. */
-import PortableText from "react-portable-text";
+import PortableText from 'react-portable-text';
 
 // This is responsible for converting objects into understandable JS data types.
 const serializer = {
-  h1: (props: any) => <h1 className="my-5 text-2xl font-bold" {...props} />,
-  h2: (props: any) => <h2 className="my-5 text-xl font-bold" {...props} />,
-  li: ({ children }: any) => <li className="ml-4 list-disc">{children}</li>,
+  h1: (props: any) => (
+    <h1 className="my-5 text-2xl font-bold" {...props} />
+  ),
+  h2: (props: any) => (
+    <h2 className="my-5 text-xl font-bold" {...props} />
+  ),
+  li: ({ children }: any) => (
+    <li className="ml-4 list-disc">{children}</li>
+  ),
   link: ({ href, children }: any) => (
     <a href={href} className="text-blue-500 hover:underline">
       {children}
@@ -64,8 +70,8 @@ export default function Slug({ post }: Props) {
   // List of exported Typescript [Types](https://react-hook-form.com/ts).
   // We point to our `FormInput` type so the data is referring to our types.
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    await fetch("/api/createComment", {
-      method: "POST",
+    await fetch('/api/createComment', {
+      method: 'POST',
       body: JSON.stringify(data),
     })
       .then(() => {
@@ -98,11 +104,12 @@ export default function Slug({ post }: Props) {
             alt=""
           />
           <p className="text-sm font-extralight">
-            Blog post by{" "}
+            Blog post by{' '}
             <span className="font-medium text-green-600">
               {post.author.name}
-            </span>{" "}
-            - Published at {new Date(post._createdAt).toLocaleString()}
+            </span>{' '}
+            - Published at{' '}
+            {new Date(post._createdAt).toLocaleString()}
           </p>
         </div>
         {/* Importing data from the post body in sanity: */}
@@ -127,7 +134,9 @@ export default function Slug({ post }: Props) {
 
       {submitted ? (
         <div className="flex flex-col max-w-2xl p-10 mx-auto text-white bg-yellow-500">
-          <h3 className="text-3xl font-bold">Thank you for your feedback!</h3>
+          <h3 className="text-3xl font-bold">
+            Thank you for your feedback!
+          </h3>
           <p>Once it has been approved, it will appear below.</p>
         </div>
       ) : (
@@ -137,12 +146,14 @@ export default function Slug({ post }: Props) {
           className="flex flex-col max-w-2xl p-5 mx-auto mb-10"
         >
           <h3 className="text-sm">Enjoy this article?</h3>
-          <h4 className="text-2xl font-bold">Leave a comment below!</h4>
+          <h4 className="text-2xl font-bold">
+            Leave a comment below!
+          </h4>
           <hr className="py-3 mt-2" />
 
           {/* This hidden `_id` form embeds information inside it. Here we use the register function returned from `useForm` to spread out its values into our form, enhancing all input fields we place it as a prop. The types we pass to the register callbacks, are setup in `FormInput` interface. */}
           <input
-            {...register("_id")}
+            {...register('_id')}
             type="hidden"
             name="_id"
             value={post._id}
@@ -151,7 +162,7 @@ export default function Slug({ post }: Props) {
           <label className="block mb-5">
             <span className="text-gray-700">Name</span>
             <input
-              {...register("name", { required: true })}
+              {...register('name', { required: true })}
               className="block w-full px-3 py-2 mt-1 border rounded shadow outline-none form-input ring-yellow-500 focus:ring"
               type="text"
               placeholder="Your name please"
@@ -160,7 +171,7 @@ export default function Slug({ post }: Props) {
           <label className="block mb-5">
             <span className="text-gray-700">Email</span>
             <input
-              {...register("email", { required: true })}
+              {...register('email', { required: true })}
               className="block w-full px-3 py-2 mt-1 border rounded shadow outline-none form-input ring-yellow-500 focus:ring"
               type="text"
               placeholder="And your email"
@@ -169,7 +180,7 @@ export default function Slug({ post }: Props) {
           <label className="block mb-5">
             <span className="text-gray-700">Comment</span>
             <textarea
-              {...register("comment", { required: true })}
+              {...register('comment', { required: true })}
               className="block w-full px-3 py-2 mt-1 border rounded shadow outline-none form-textarea ring-yellow-500 focus:ring"
               rows={8}
               placeholder="Lastly, leave a comment"
@@ -179,10 +190,14 @@ export default function Slug({ post }: Props) {
           {/* errors will be returned here when field validation fails */}
           <div className="flex flex-col p-5">
             {errors.name && (
-              <span className="text-red-500">- A name field is required</span>
+              <span className="text-red-500">
+                - A name field is required
+              </span>
             )}
             {errors.email && (
-              <span className="text-red-500">- A email field is required</span>
+              <span className="text-red-500">
+                - A email field is required
+              </span>
             )}
             {errors.comment && (
               <span className="text-red-500">
@@ -200,7 +215,7 @@ export default function Slug({ post }: Props) {
       <hr className="max-w-lg mx-auto my-5 border border-custom-yellow-medium" />
 
       {/* Comments */}
-      <div className="flex flex-col max-w-2xl p-10 mx-auto my-10 space-y-2 shadow">
+      <div className="flex flex-col max-w-2xl p-10 mx-auto my-10 space-y-2 bg-gray-100 shadow">
         <h3 className="text-3xl">Comments</h3>
         <hr className="pb-2" />
         {post.comments.map((comment) => (
@@ -208,7 +223,7 @@ export default function Slug({ post }: Props) {
             <p className="text-sm font-light">
               <span className="p-1 px-2 font-medium bg-yellow-300 rounded">
                 {comment.name}
-              </span>{" "}
+              </span>{' '}
               {comment.comment}
             </p>
           </div>
@@ -321,7 +336,7 @@ export async function getStaticPaths() {
   // `fallback` of blocking shows a 404 page if it does'nt exist.
   return {
     paths,
-    fallback: "blocking",
+    fallback: 'blocking',
   };
 }
 
@@ -377,7 +392,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     slug,
     body
   }`;
-  const post = await sanityClient.fetch(query, { slug: params?.slug });
+  const post = await sanityClient.fetch(query, {
+    slug: params?.slug,
+  });
   // Error handling if no post was found:
   if (!post) {
     return {

@@ -3,19 +3,20 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "GtSuper";
+  font-family: 'GtSuper';
   font-style: normal;
   font-weight: 500;
-  src: local("/fonts/GT-Super/GT-Super-Text-Medium-Trial.otf"),
-    url("/fonts/GT-Super/GT-Super-Text-Medium-Trial.otf") format("otf");
+  src: local('/fonts/GT-Super/GT-Super-Text-Medium-Trial.otf'),
+    url('/fonts/GT-Super/GT-Super-Text-Medium-Trial.otf')
+      format('otf');
 }
 
 body {
-  background: linear-gradient(
+  /* background: linear-gradient(
     to right,
     rgb(17, 24, 39, 0.5),
     rgb(17, 24, 39, 0.3),
     rgb(17, 24, 39, 0.2),
     rgb(0, 0, 0, 0.1)
-  );
+  ); */
 }
